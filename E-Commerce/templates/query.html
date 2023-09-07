@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>E-Commerce</title>
+    <style>
+        .nav-bar{
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   background-color: #66BFBf;
+   padding-top: 30px;
+   padding-bottom: 35px;
+   z-index: 1;
+   position: fixed;
+   top:0;
+   right:0;
+   left:0;
+ }
+ .name{
+   margin-left: 30px;
+   font-family: Geneva,Tahoma,Verdana,sans-serif; 
+   font-size:25px;
+ }
+ .menu-bar{
+   margin-right:50px;
+ }
+ .menu-bar:last-child {
+   margin-right: 0;
+ }
+ .menu-bar-style {
+   display: flex;
+   justify-content: flex-end;
+   align-items: center;
+   margin-right: 30px;
+ }
+ a {
+   text-decoration: none;
+}
+
+a:link, a:visited {
+   color: black;
+}
+ 
+ body{
+     position: relative;
+     margin: 0;
+     font-family: Arial, sans-serif;
+     padding-top: 120px;
+       
+ }
+  
+   
+
+.heading {
+           text-align: center;
+       }
+       .below-navbar {
+           display: flex;
+           justify-content: center;
+           align-items: center;
+           height: calc(100vh - 120px);
+       }
+       
+       .form-div {
+           background-color: #AFE9EB;
+           padding: 100px;
+           border-radius: 5px;
+           text-align: left;
+       }
+       table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+        color: black;
+    }
+ </style>
+</head>
+<body>
+    <div class="nav-bar">
+        <a class="name">Orders On a GO</a>
+        <div class="menu-bar-style">
+            <a class="menu-bar" href="{{ url_for('customers') }}">Customers</a>
+            <a class="menu-bar" href="{{ url_for('orders') }}">Orders</a>
+            <a class="menu-bar" href="{{ url_for('products') }}">Products</a>
+            <a class="menu-bar" href="{{ url_for('promotions') }}">Promotions</a>
+            <a class="menu-bar" href="{{ url_for('query') }}">Customized Query</a>
+        </div>
+    </div>
+
+        <h1>SQL Query</h1>
+       <center> <form action="/execute_query" method="post">
+            <textarea name="query" rows="5" cols="80" placeholder="Enter your SQL query here..."></textarea>
+            <br>
+            <input type="submit" value="Get Query Results">
+        </form>
+        </center>
+        {% if query_results %}
+        <table>
+            <thead>
+                <tr>
+                    {% for column_name in column_names %}
+                    <th>{{ column_name }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in query_results %}
+                <tr>
+                    {% for value in row %}
+                    <td>{{ value }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+</body>
+</html>
